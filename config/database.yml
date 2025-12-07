@@ -81,21 +81,6 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  primary: &primary_production
-    <<: *default
-    database: gate_pass_api_production
-    username: gate_pass_api
-    password: <%= ENV["GATE_PASS_API_DATABASE_PASSWORD"] %>
-  cache:
-    <<: *primary_production
-    database: gate_pass_api_production_cache
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *primary_production
-    database: gate_pass_api_production_queue
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: gate_pass_api_production_cable
-    migrations_paths: db/cable_migrate
+  url: <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
