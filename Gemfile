@@ -8,6 +8,12 @@ gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
+# Gemfile
+gem "devise"
+gem "devise-jwt"
+gem "jsonapi-serializer"
+gem "rack-cors"
+gem "kaminari"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"

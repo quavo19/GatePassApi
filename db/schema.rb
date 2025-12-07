@@ -10,8 +10,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 0) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_07_022402) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
+  create_table "staff_members", force: :cascade do |t|
+    t.string "name"
+    t.string "department"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "role"
+    t.boolean "active"
+    t.string "jti"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["jti"], name: "index_users_on_jti", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "visitors", force: :cascade do |t|
+    t.string "ticket_number", null: false
+    t.string "full_name", null: false
+    t.string "phone", null: false
+    t.string "ghana_card_number", null: false
+    t.integer "staff_member_id", null: false
+    t.string "purpose", null: false
+    t.datetime "check_in_time", null: false
+    t.datetime "check_out_time"
+    t.string "status", default: "checked_in", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["staff_member_id"], name: "index_visitors_on_staff_member_id"
+    t.index ["ticket_number"], name: "index_visitors_on_ticket_number", unique: true
+  end
+
+  add_foreign_key "visitors", "staff_members"
 end
